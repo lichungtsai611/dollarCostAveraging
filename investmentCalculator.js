@@ -34,6 +34,7 @@ function updateCalculationFunctionForRadio() {
                     bindEventListeners(calculateFV);
                     break;
             }
+            resetFieldsForRadio(calculationType); // 重置字段为可编辑状态，并根据选择设置只读
         });
     });
     // 由于页面加载时默认选择的是计算FV，直接调用calculateFV()即可
@@ -162,7 +163,7 @@ function calculatePV() {
         options: {
             scales: {
                 y: {
-                    beginAtZero: false
+                    beginAtZero: true
                 }
             }
         }
@@ -297,7 +298,7 @@ function calculatePMT() {
         options: {
             scales: {
                 y: {
-                    beginAtZero: false
+                    beginAtZero: true
                 }
             }
         }
@@ -379,20 +380,36 @@ document.getElementById('calculationType').addEventListener('change', function()
     resetFields(); // 重置字段为可编辑状态，并根据选择设置只读
 });
 
-function resetFields() {
-    // Reset all fields to be editable
-    var fields = ['pv', 'yrs', 'pmt', 'ear', 'fv'];
+// function resetFields() {
+//     // Reset all fields to be editable
+//     var fields = ['pv', 'yrs', 'pmt', 'ear', 'fv'];
+//     fields.forEach(function(field) {
+//         var input = document.getElementById(field);
+//         input.readOnly = false;
+//         input.style.backgroundColor = "#ffffff"; // 重置背景色
+//     });
+
+//     // Set the selected field to readonly based on the dropdown selection
+//     var selectedField = document.getElementById('calculationType').value;
+//     if (selectedField !== '') {
+//         var selectedInput = document.getElementById(selectedField);
+//         selectedInput.readOnly = true;
+//         selectedInput.style.backgroundColor = "#f0f0f0"; // 设置只读字段的背景色
+//     }
+// }
+
+function resetFieldsForRadio(selectedCalculationType) {
+    var fields = ['pv', 'yrs', 'pmt', 'ear', 'fv']; // 对应于HTML中的输入框ID
     fields.forEach(function(field) {
         var input = document.getElementById(field);
-        input.readOnly = false;
-        input.style.backgroundColor = "#ffffff"; // 重置背景色
+        if (field === selectedCalculationType) {
+            // 如果字段与选中的计算类型匹配，设置为只读并改变背景色
+            input.readOnly = true;
+            input.style.backgroundColor = "#f0f0f0";
+        } else {
+            // 其他字段设置为可编辑并重置背景色
+            input.readOnly = false;
+            input.style.backgroundColor = "#ffffff";
+        }
     });
-
-    // Set the selected field to readonly based on the dropdown selection
-    var selectedField = document.getElementById('calculationType').value;
-    if (selectedField !== '') {
-        var selectedInput = document.getElementById(selectedField);
-        selectedInput.readOnly = true;
-        selectedInput.style.backgroundColor = "#f0f0f0"; // 设置只读字段的背景色
-    }
 }
