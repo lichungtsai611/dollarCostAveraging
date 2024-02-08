@@ -8,20 +8,21 @@
 <body>
     <h2>定期定額投資計算器</h2>
     <label for="calculationType">計算選項：</label>
-    <select id="calculationType" name="calculationType">
-        <option value="fv" selected>算最終金額</option>
-        <option value="pv">算所需本金</option>
-        <option value="yrs">算所需時間</option>
-        <option value="ear">算年化報酬</option>
-        <option value="pmt">算定期定額</option>
-    </select><br><br>
 
     <form id="investmentForm">
+        <label><input type="radio" name="calculationType" value="fv" checked> 算最終金額</label>
+        <label><input type="radio" name="calculationType" value="pv"> 算所需本金</label>
+        <label><input type="radio" name="calculationType" value="yrs"> 算所需時間</label>
+        <label><input type="radio" name="calculationType" value="ear"> 算年化報酬</label>
+        <label><input type="radio" name="calculationType" value="pmt"> 算定期定額</label>
+
+        <br><br>
+
         <label for="pv">本金（最初投入）：</label>
-        <input type="number" step="100" id="pv" name="pv" value = "0"><br><br>
+        <input type="number" step="10000" id="pv" name="pv" value = "10000"><br><br>
 
         <label for="yrs">時間（投資時程）：</label>
-        <input type="number" id="yrs" name="yrs" value = "10"><br><br>
+        <input type="number" step="1" id="yrs" name="yrs" value = "10"><br><br>
         
         <label for="frequency">定期（投入頻率）：</label>
         <select id="frequency" name="frequency">
@@ -31,13 +32,13 @@
         </select><br><br>
         
         <label for="pmt">定額（投入資金）：</label>
-        <input type="number" step="100" id="pmt" name="pmt" value = "1000"><br><br>
+        <input type="number" step="1000" id="pmt" name="pmt" value = "10000"><br><br>
         
         <label for="ear">年化報酬率（％）：</label>
-        <input type="number" step="0.1" id="ear" name="ear" value = "5"><br><br>
+        <input type="number" step="1" id="ear" name="ear" value = "6"><br><br>
         
         <label for="fv">終值（最終金額）：</label>
-        <input type="number" step="100" id="fv" name="fv" readonly style="background-color: #f0f0f0;" value="0">
+        <input type="number" step="1000000" id="fv" name="fv" readonly style="background-color: #f0f0f0;" value="0">
 
     </form>
     <canvas id="investmentChart" width="400" height="200"></canvas>

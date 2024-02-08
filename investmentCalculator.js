@@ -1,35 +1,46 @@
 var chartInstance = null; // 在函数外部定义一个变量来持有图表实例
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始调用一次以显示默认值的结果
-    updateCalculationFunction();
+    // 绑定单选按钮事件监听器
+    updateCalculationFunctionForRadio();
+
+    // 直接调用默认计算函数以生成图表
+    calculateFV();
 });
 
-function updateCalculationFunction() {
-    var calculationType = document.getElementById('calculationType').value;
-    // 根据下拉菜单的值动态更改事件监听器绑定的函数
-    switch (calculationType) {
-        case 'ear':
-            bindEventListeners(calculateEAR);
-            break;
-        case 'pv':
-            bindEventListeners(calculatePV);
-            break;
-        case 'fv':
-            bindEventListeners(calculateFV);
-            break;
-        case 'yrs':
-            bindEventListeners(calculateyrs);
-            break;
-        case 'pmt':
-            bindEventListeners(calculatePMT);
-            break;
-        default:
-            // 如果没有匹配的case，默认使用calculateFV
-            bindEventListeners(calculateFV);
-            break;
-    }
+function updateCalculationFunctionForRadio() {
+    var calculationTypes = document.querySelectorAll('input[name="calculationType"]');
+    calculationTypes.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            var calculationType = this.value; // 获取当前选中的单选按钮的值
+            // 根据单选按钮的值动态更改事件监听器绑定的函数
+            switch (calculationType) {
+                case 'ear':
+                    bindEventListeners(calculateEAR);
+                    break;
+                case 'pv':
+                    bindEventListeners(calculatePV);
+                    break;
+                case 'fv':
+                    bindEventListeners(calculateFV);
+                    break;
+                case 'yrs':
+                    bindEventListeners(calculateyrs);
+                    break;
+                case 'pmt':
+                    bindEventListeners(calculatePMT);
+                    break;
+                default:
+                    bindEventListeners(calculateFV);
+                    break;
+            }
+        });
+    });
+    // 由于页面加载时默认选择的是计算FV，直接调用calculateFV()即可
+    // calculateFV(); // 若需要在用户更改选择时才更新，可将此行移至相应的case内
 }
+
+// 确保其他函数（如calculateFV等）已正确定义且可以执行。
 
 function bindEventListeners(calculationFunction) {
     var inputs = document.querySelectorAll('#investmentForm input, #investmentForm select');
