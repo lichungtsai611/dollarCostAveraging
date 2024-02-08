@@ -37,11 +37,8 @@ function updateCalculationFunctionForRadio() {
             resetFieldsForRadio(calculationType); // 重置字段为可编辑状态，并根据选择设置只读
         });
     });
-    // 由于页面加载时默认选择的是计算FV，直接调用calculateFV()即可
-    // calculateFV(); // 若需要在用户更改选择时才更新，可将此行移至相应的case内
 }
 
-// 确保其他函数（如calculateFV等）已正确定义且可以执行。
 
 function bindEventListeners(calculationFunction) {
     var inputs = document.querySelectorAll('#investmentForm input, #investmentForm select');
@@ -379,24 +376,6 @@ document.getElementById('calculationType').addEventListener('change', function()
     updateCalculationFunction(); // 更新计算函数
     resetFields(); // 重置字段为可编辑状态，并根据选择设置只读
 });
-
-// function resetFields() {
-//     // Reset all fields to be editable
-//     var fields = ['pv', 'yrs', 'pmt', 'ear', 'fv'];
-//     fields.forEach(function(field) {
-//         var input = document.getElementById(field);
-//         input.readOnly = false;
-//         input.style.backgroundColor = "#ffffff"; // 重置背景色
-//     });
-
-//     // Set the selected field to readonly based on the dropdown selection
-//     var selectedField = document.getElementById('calculationType').value;
-//     if (selectedField !== '') {
-//         var selectedInput = document.getElementById(selectedField);
-//         selectedInput.readOnly = true;
-//         selectedInput.style.backgroundColor = "#f0f0f0"; // 设置只读字段的背景色
-//     }
-// }
 
 function resetFieldsForRadio(selectedCalculationType) {
     var fields = ['pv', 'yrs', 'pmt', 'ear', 'fv']; // 对应于HTML中的输入框ID
